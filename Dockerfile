@@ -39,5 +39,8 @@ RUN poetry install --no-interaction --no-cache # --without dev
 # Copy Application
 COPY . /app
 
+#RUN prisma generate --schema=./app/prisma/schema.prisma
+#RUN prisma db push --schema=./app/prisma/schema.prisma
+
 # Run Application
 EXPOSE 8000
