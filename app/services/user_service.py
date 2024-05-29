@@ -1,10 +1,7 @@
 import logging
-
 from prisma.errors import UniqueViolationError, RecordNotFoundError
-
 from fastapi import HTTPException
 from pydantic import TypeAdapter
-
 from app.repositories.user_repository import IUserRepository
 from app.domain.dtos.user_dto import UserDTO, UserCreateDTO, UserUpdateDTO
 
@@ -49,7 +46,7 @@ class UserService(IUserService):
             user = await self.user_repository.read_one(user_id)
         except RecordNotFoundError as e:
             logger.error("User with id %s not found. Detail: %s", user_id, e)
-            raise HTTPException(status_code=404, detail="User not found")
+            raise HTTPException(status_code=404, detail="User not found.")
         return TypeAdapter(UserDTO).validate_python(user)
 
     async def read_all(self) -> list[UserDTO]:
@@ -61,8 +58,8 @@ class UserService(IUserService):
         logger.info("Updating user with id %s", user_id)
         user = await self.user_repository.read_one(user_id)
         if user is None:
-            logger.error("User with id %s not found", user_id)
-            raise HTTPException(status_code=404, detail="User not found")
+            logger.error("User with id %s not found.", user_id)
+            raise HTTPException(status_code=404, detail="User not found.")
 
         user_data = user_data.model_dump(exclude_unset=True)
         for key, value in user_data.items():
@@ -74,6 +71,6 @@ class UserService(IUserService):
         logger.info("Deleting user with id %s", user_id)
         user = await self.user_repository.read_one(user_id)
         if user is None:
-            logger.error("User with id %s not found", user_id)
-            raise HTTPException(status_code=404, detail="User not found")
+            logger.error("User with id %s not found.", user_id)
+            raise HTTPException(status_code=404, detail="User not found.")
         return await self.user_repository.delete(user)
