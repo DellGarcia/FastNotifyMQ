@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from app.domain.dtos.user_dto import UserCreateDTO
+from app.domains.dtos.user_dto import UserCreateDTO
 from prisma.models import User
 
 
@@ -18,7 +18,7 @@ class IUserRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def update(self, _id: int, user_data: User):
+    async def update(self, _id: int, user_data: dict):
         raise NotImplementedError
 
     @abstractmethod

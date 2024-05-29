@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.openapi.docs import get_swagger_ui_html
 from starlette.responses import RedirectResponse, JSONResponse
 
-from app.config.log_config import setup_logging
+from app.configs.log_config import setup_logging
 from app.controllers.user_controller import user_router
 
 logger = setup_logging()

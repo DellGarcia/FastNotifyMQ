@@ -1,7 +1,7 @@
 from prisma import Prisma
 from prisma.models import User
 from app.repositories.interfaces import IUserRepository
-from app.domain.dtos.user_dto import UserCreateDTO
+from app.domains.dtos.user_dto import UserCreateDTO
 
 
 class UserRepository(IUserRepository):
@@ -28,11 +28,11 @@ class UserRepository(IUserRepository):
             data = await db.user.find_many()
         return data
 
-    async def update(self, _id: int, user_data: User):
+    async def update(self, _id: int, user_data: dict):
         async with self.prisma as db:
             data = await db.user.update(
                 where={"id": _id},
-                data=user_data.model_dump()
+                data=user_data
             )
 
         return data

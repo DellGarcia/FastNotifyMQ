@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from prisma import Prisma
 
-from app.domain.dtos.user_dto import UserDTO, UserCreateDTO, UserUpdateDTO
+from app.domains.dtos.user_dto import UserDTO, UserCreateDTO, UserUpdateDTO
 from app.repositories.user_repository import UserRepository
 from app.services.user_service import UserService
 

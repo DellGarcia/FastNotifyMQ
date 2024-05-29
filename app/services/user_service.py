@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from pydantic import TypeAdapter
 
 from app.repositories.user_repository import IUserRepository
-from app.domain.dtos.user_dto import UserDTO, UserCreateDTO, UserUpdateDTO
+from app.domains.dtos.user_dto import UserDTO, UserCreateDTO, UserUpdateDTO
 
 logger = logging.getLogger("fastapi")
 
@@ -67,7 +67,7 @@ class UserService(IUserService):
         user_data = user_data.model_dump(exclude_unset=True)
         for key, value in user_data.items():
             setattr(user, key, value)
-        updated_user = self.user_repository.update(user, user_data)
+        updated_user = await self.user_repository.update(user, user_data)
         return TypeAdapter(UserDTO).validate_python(updated_user)
 
     async def delete_user(self, user_id: int) -> int:
